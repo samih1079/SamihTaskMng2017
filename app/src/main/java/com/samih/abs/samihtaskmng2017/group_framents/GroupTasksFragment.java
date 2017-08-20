@@ -12,10 +12,10 @@ import com.samih.abs.samihtaskmng2017.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TasksFragment extends Fragment {
+public class GroupTasksFragment extends Fragment {
 
 
-    public TasksFragment() {
+    public GroupTasksFragment() {
         // Required empty public constructor
     }
 

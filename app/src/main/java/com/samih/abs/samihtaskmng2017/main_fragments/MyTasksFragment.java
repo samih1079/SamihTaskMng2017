@@ -49,7 +49,8 @@ public class MyTasksFragment extends Fragment implements TitleAble {
             tasksAdapter=new TasksAdapter(getActivity(),R.layout.itm_task);
 
         //todo get the data source and set it to the adapter
-        DBUtils.myTasksRef.addValueEventListener(new ValueEventListener() {
+        String userEmail=DBUtils.auth.getCurrentUser().getEmail();
+        DBUtils.myTasksRef.orderByChild("uKey").equalTo(userEmail).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {

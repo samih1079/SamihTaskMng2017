@@ -1,5 +1,7 @@
 package com.samih.abs.samihtaskmng2017;
 
+import android.content.Intent;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.samih.abs.samihtaskmng2017.data.DBUtils;
+import com.samih.abs.samihtaskmng2017.data.MyGroup;
 import com.samih.abs.samihtaskmng2017.data.MyTasks;
 import com.samih.abs.samihtaskmng2017.main_fragments.MyGroupsFragment;
 import com.samih.abs.samihtaskmng2017.main_fragments.MyTasksFragment;
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
@@ -69,32 +73,44 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final MyTasks myTasks=new MyTasks();
-                myTasks.setCreatedAt(System.currentTimeMillis());
-                myTasks.setText("todo"+System.currentTimeMillis());
-                myTasks.setCompleted(false);
-                myTasks.setAddress("haifa");
-                myTasks.setgKey("group1");
-                myTasks.setuKey(DBUtils.auth.getCurrentUser().getEmail());
-                myTasks.settKey(DBUtils.myTasksRef.push().getKey());
-                DBUtils.myTasksRef.child(myTasks.gettKey()).setValue(myTasks)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful())
-                                {
-                                    Toast.makeText(MainActivity.this, myTasks.getText()+" Added", Toast.LENGTH_LONG).show();
-                                }
-                                else
-                                {
-                                    Toast.makeText(MainActivity.this, myTasks.getText()+" Failed", Toast.LENGTH_LONG).show();
+//                Intent intent=new Intent(getBaseContext(),AddGroupActivity.class);
+//                startActivity(intent);
+                MyGroup myGroup=new MyGroup();
+                myGroup.setMngrUkey(DBUtils.auth.getCurrentUser().getEmail());
+                myGroup.setName("g"+ System.currentTimeMillis());
+                myGroup.addUserKey(myGroup.getMngrUkey().replace('.','*'));
 
-                                }
-                            }
-                        });
+                myGroup.setgKey(DBUtils.myGroupsRef.push().getKey());
+
+                DBUtils.myGroupsRef.child(myGroup.getgKey()).setValue(myGroup);
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                    .setAction("Action", null).show();
+//                final MyTasks myTasks=new MyTasks();
+//                myTasks.setCreatedAt(System.currentTimeMillis());
+//                myTasks.setText("todo"+System.currentTimeMillis());
+//                myTasks.setCompleted(false);
+//                myTasks.setAddress("haifa");
+//                myTasks.setgKey("group1");
+//                myTasks.setuKey(DBUtils.auth.getCurrentUser().getEmail());
+//                myTasks.settKey(DBUtils.myTasksRef.push().getKey());
+//                DBUtils.myTasksRef.child(myTasks.gettKey()).setValue(myTasks)
+//                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<Void> task) {
+//                                if(task.isSuccessful())
+//                                {
+//                                    Toast.makeText(MainActivity.this, myTasks.getText()+" Added", Toast.LENGTH_LONG).show();
+//                                }
+//                                else
+//                                {
+//                                    Toast.makeText(MainActivity.this, myTasks.getText()+" Failed", Toast.LENGTH_LONG).show();
+//
+//                                }
+//                            }
+//                        });
+
+
             }
         });
 
