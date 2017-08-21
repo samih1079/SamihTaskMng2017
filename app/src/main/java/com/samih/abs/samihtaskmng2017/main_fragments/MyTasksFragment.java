@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +40,12 @@ public class MyTasksFragment extends Fragment implements TitleAble {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_my_tasks2, container, false);
         lstMyTasks= (ListView) view.findViewById(R.id.lstVTasks);
+        lstMyTasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getActivity(), ""+position, Toast.LENGTH_SHORT).show();
+            }
+        });
         //todo conncet the listview to dtat source by Adpater
         initListview();
         return view;

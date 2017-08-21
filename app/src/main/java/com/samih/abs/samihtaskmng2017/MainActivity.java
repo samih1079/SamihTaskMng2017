@@ -73,16 +73,16 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent=new Intent(getBaseContext(),AddGroupActivity.class);
-//                startActivity(intent);
-                MyGroup myGroup=new MyGroup();
-                myGroup.setMngrUkey(DBUtils.auth.getCurrentUser().getEmail());
-                myGroup.setName("g"+ System.currentTimeMillis());
-                myGroup.addUserKey(myGroup.getMngrUkey().replace('.','*'));
-
-                myGroup.setgKey(DBUtils.myGroupsRef.push().getKey());
-
-                DBUtils.myGroupsRef.child(myGroup.getgKey()).setValue(myGroup);
+                Intent intent=new Intent(getBaseContext(),AddGroupActivity.class);
+                startActivity(intent);
+//                MyGroup myGroup=new MyGroup();
+//                myGroup.setMngrUkey(DBUtils.auth.getCurrentUser().getEmail());
+//                myGroup.setName("g"+ System.currentTimeMillis());
+//                myGroup.addUserKey(myGroup.getMngrUkey().replace('.','*'));
+//
+//                myGroup.setgKey(DBUtils.myGroupsRef.push().getKey());
+//
+//                DBUtils.myGroupsRef.child(myGroup.getgKey()).setValue(myGroup);
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
